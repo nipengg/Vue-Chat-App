@@ -38,7 +38,32 @@
                 messages: [],
             }
         },
+        watch: {
+            currentRoom(val, oldVal)
+            {
+                if(oldVal.id)
+                {
+                    this.disconnect(oldVal);
+                }
+                this.connect();
+            }
+        },
         methods: {
+            connect()
+            {
+                if(this.currentRoom.id)
+                {
+                    let vm = this;
+                    this.getMessage();
+                    window.Echo.private("chat." + this.currentRoom.id).listen('.message.new', e => {
+                        vm.getMessage();
+                    });
+                }
+            },
+            disconnect(room)
+            {
+                window.Echo.leave("chat." + room.id);
+            },
             getRooms()
             {
                 axios.get('/chat/rooms')
@@ -53,7 +78,6 @@
             setRoom(room)
             {
                 this.currentRoom = room;
-                this.getMessage();
             },
             getMessage()
             {
