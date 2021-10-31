@@ -33,6 +33,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/chat', function () {
     return Inertia::render('Chat/container');
 })->name('chat');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/channel', function () {
+    return Inertia::render('Channel/index');
+})->name('channel');
+
 Route::middleware('auth:sanctum')->get('/chat/rooms', [ChatController::class, 'rooms']);
 Route::middleware('auth:sanctum')->get('/chat/rooms/{room_id}/messages', [ChatController::class, 'messages']);
 Route::middleware('auth:sanctum')->post('/chat/rooms/{room_id}/message', [ChatController::class, 'newMessage']);
