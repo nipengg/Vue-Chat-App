@@ -5,13 +5,11 @@
       <jet-input class="font-sans font-thin text-2xl appearance-none bg-transparent border-none w-full text-grey-darker mr-3 py-1 px-2 leading-tight focus:outline-none"
            type="text"
            placeholder="New Room"
-           aria-label="Full name"
            v-model="newRoom"
-           @keypress.enter=""
            />
       <button class="bg-gray-500 hover:bg-blue-700 p-1 text-white rounded"
           type="button"
-          @click=""
+          @click="addRoom()"
           >
         Add
       </button>
@@ -32,12 +30,29 @@ export default {
     },
     data: function() {
         return {
-            newRoom: '',
+            newRoom: ""
         }
     },
     methods: {
         cancelRoom () {
             this.newRoom = ''
+        },
+        addRoom() {
+            if (this.newRoom == '') {
+                return;
+            }
+            axios.post('api/room/store', {
+                name: this.newRoom
+            })
+            .then(response => {
+                if(response.status == 201){
+                    this.newRoom = "";
+                    this.$emit('reloadlist')
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
         },
     },
 }
