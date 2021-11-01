@@ -1,7 +1,7 @@
 <template lang="">
     <div class="flex-col w-100 h-full mt-4 ml-2 mr-2">
     <h1 class="flex-1 font-sans font-thin text-center text-5xl text-grey-darkest">Add Room</h1>
-      <div class="flex items-center border-b border-b-2 border-teal py-2">
+      <div class="flex items-center py-2">
       <jet-input class="font-sans font-thin text-2xl appearance-none bg-transparent border-none w-full text-grey-darker mr-3 py-1 px-2 leading-tight focus:outline-none"
            type="text"
            placeholder="New Room"

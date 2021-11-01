@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="p-2">
+    <div class="h-96 w-full p-2 overflow-y-scroll h-full flex flex-col-reverse">
         <div v-for="(room, index) in rooms" :key="index">
             <room-item :room="room" />
         </div>
