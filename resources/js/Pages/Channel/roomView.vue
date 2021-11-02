@@ -1,7 +1,7 @@
 <template lang="">
-    <div class="h-96 w-full p-2 overflow-y-scroll h-full flex flex-col-reverse">
+    <div class="h-96 w-full p-2 overflow-y-scroll h-full flex flex-col">
         <div v-for="(room, index) in rooms" :key="index">
-            <room-item :room="room" />
+            <room-item :room="room" v-on:roomchanged="$emit('reloadlist')" />
         </div>
     </div>
 </template>

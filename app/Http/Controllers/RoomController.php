@@ -14,4 +14,16 @@ class RoomController extends Controller
 
         return $newRoom;
     }
+
+    public function destroy($id)
+    {
+        $data = ChatRoom::find($id);
+        if ($data)
+        {
+            $data->delete();
+            return "Deleted Successfully";
+        }
+
+        return "Item not found";
+    }
 }

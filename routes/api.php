@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/room/store', [RoomController::class, 'newRoom']);
+Route::delete('/room/{id}', [RoomController::class, 'destroy']);

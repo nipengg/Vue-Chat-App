@@ -8,7 +8,7 @@
                 <tr>
                     <td class="border px-4 py-2">{{ room.name }}</td>
                     <td class="border w-md px-4 py-2">
-                        <button @click="" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+                        <button @click="deleteRoom()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
                     </td>
                 </tr>
             </tbody>
@@ -17,7 +17,20 @@
 </template>
 <script>
 export default {
-    props: ['room']
+    props: ['room'],
+    methods: {
+        deleteRoom() {
+            axios.delete('/api/room/' + this.room.id)
+            .then(response => {
+                if (response.status == 200) {
+                    this.$emit('roomchanged');
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
+    },
 }
 </script>
 <style lang="">
