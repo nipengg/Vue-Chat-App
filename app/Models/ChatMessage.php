@@ -9,6 +9,8 @@ class ChatMessage extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function room() {
         return $this->hasOne('App\Models\ChatRoom', 'id', 'chat_room_id');
     }

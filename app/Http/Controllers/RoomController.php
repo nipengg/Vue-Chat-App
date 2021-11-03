@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\ChatRoom;
+use App\Models\ChatMessage;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
@@ -17,11 +19,22 @@ class RoomController extends Controller
 
     public function destroy($id)
     {
-        $data = ChatRoom::find($id);
-        if ($data)
+        $room = ChatRoom::find($id);
+        $messages = ChatMessage::where('chat_room_id', $id)->get();
+
+        if ($room || $messages)
         {
-            $data->delete();
-            return "Deleted Successfully";
+            $room->delete();
+
+            if ($messages)
+            {
+                DB::delete("
+                    DELETE FROM chat_messages
+                    WHERE
+                    chat_room_id = ?
+                ", [$id]);
+            }
+            return "Room and Room Message Deleted Successfully";
         }
 
         return "Item not found";
